@@ -10,6 +10,82 @@
   <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/chartjs-plugin-datalabels@2"></script>
   <style>
+    #tela-senha {
+      position: fixed;
+      inset: 0;
+      background: linear-gradient(180deg, #07162e 0%, #0b1f40 100%);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      z-index: 9999;
+      font-family: Inter, Arial, sans-serif;
+    }
+    #tela-senha .box {
+      background: rgba(255,255,255,0.06);
+      border: 1px solid rgba(255,255,255,0.12);
+      border-radius: 24px;
+      padding: 48px 40px;
+      width: 100%;
+      max-width: 400px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 20px;
+    }
+    #tela-senha .logo {
+      width: 64px;
+      height: 64px;
+      border-radius: 20px;
+      background: linear-gradient(135deg, #60a5fa, #2563eb);
+      display: grid;
+      place-items: center;
+      font-size: 32px;
+      font-weight: 800;
+      color: #fff;
+    }
+    #tela-senha h2 {
+      color: #fff;
+      margin: 0;
+      font-size: 22px;
+      font-weight: 800;
+      text-align: center;
+    }
+    #tela-senha p {
+      color: rgba(255,255,255,0.6);
+      margin: 0;
+      font-size: 14px;
+      text-align: center;
+    }
+    #tela-senha input {
+      width: 100%;
+      padding: 14px 18px;
+      border-radius: 14px;
+      border: 1px solid rgba(255,255,255,0.18);
+      background: rgba(255,255,255,0.1);
+      color: #fff;
+      font-size: 16px;
+      font-family: Inter, Arial, sans-serif;
+      outline: none;
+    }
+    #tela-senha input::placeholder { color: rgba(255,255,255,0.4); }
+    #tela-senha button {
+      width: 100%;
+      padding: 14px;
+      border-radius: 14px;
+      border: none;
+      background: #2563eb;
+      color: #fff;
+      font-size: 16px;
+      font-weight: 700;
+      font-family: Inter, Arial, sans-serif;
+      cursor: pointer;
+    }
+    #tela-senha button:hover { background: #1d4ed8; }
+    #tela-senha .erro {
+      color: #f87171;
+      font-size: 14px;
+      display: none;
+    }
     :root {
       --panel: rgba(255,255,255,0.94);
       --text: #12233e;
@@ -58,6 +134,37 @@
   </style>
 </head>
 <body>
+
+  <div id="tela-senha">
+    <div class="box">
+      <div class="logo">A</div>
+      <h2>Dashboard Executivo ACIRP</h2>
+      <p>Digite a senha para acessar o painel</p>
+      <input type="password" id="campo-senha" placeholder="Senha de acesso" onkeydown="if(event.key==='Enter') verificarSenha()" />
+      <span class="erro" id="msg-erro">Senha incorreta. Tente novamente.</span>
+      <button onclick="verificarSenha()">Entrar</button>
+    </div>
+  </div>
+
+  <script>
+    // ============================================================
+    // DEFINA A SENHA ABAIXO (troque por uma senha da sua escolha)
+    // ============================================================
+    const SENHA_CORRETA = "acirp2025";
+    // ============================================================
+
+    function verificarSenha() {
+      const digitada = document.getElementById('campo-senha').value;
+      if (digitada === SENHA_CORRETA) {
+        document.getElementById('tela-senha').style.display = 'none';
+      } else {
+        document.getElementById('msg-erro').style.display = 'block';
+        document.getElementById('campo-senha').value = '';
+        document.getElementById('campo-senha').focus();
+      }
+    }
+  </script>
+
   <div class="app">
     <aside class="sidebar">
       <div class="brand">
